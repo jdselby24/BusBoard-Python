@@ -4,8 +4,27 @@
 <div class="container body-content">
     <h2>Bus Information</h2>
     <div>
-        <p>You entered postcode <span>{{ postcode }}</span></p>
-        <p>Nearby bus stops <span>{{ bus_stops }}</span></p>
+        <h3>You entered postcode <span>{{ postcode }}</span></h3>
+        <h3>Nearby bus stops: </h3>
+        {% for stop in bus_stops %}
+            <h4>{{ stop.name }}</h4>
+            <table>
+                <tr>
+                    <th>Line</th>
+                    <th>Operator</th>
+                    <th>Direction</th>
+                    <th>Expected Departure Time</th>
+                </tr>
+                {% for departure in stop.departures %}
+                    <tr>
+                        <td>{{ departure.line_name }}</td>
+                        <td>{{ departure.operator_name }}</td>
+                        <td>{{ departure.direction }}</td>
+                        <td>{{ departure.expected_departure_time }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
