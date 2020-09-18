@@ -8,11 +8,9 @@ class bus_api:
 
     def loadconfig(self):
         with open('busboard.config') as configfile:
-            configs = []
-            for line in configfile:
-                configs.append(line[:-1])
-            self.API_KEY = configs[0].split("=")[1]
-            self.APP_ID = configs[1].split("=")[1]
+            configData = json.load(configfile)
+            self.API_KEY = configData['api-key']
+            self.APP_ID = configData['app-id']
 
     def get_bus_info(self,post_code):
         request = requests.get("http://api.postcodes.io/postcodes/"+post_code.upper())
