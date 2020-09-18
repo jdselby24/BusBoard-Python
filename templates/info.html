@@ -3,28 +3,40 @@
 {% block content %}
 <div class="container body-content">
     <h2>Bus Information</h2>
+    
     <div>
         <h3>You entered postcode <span>{{ postcode }}</span></h3>
         <h3>Nearby bus stops: </h3>
         {% for stop in bus_stops %}
             <h4>{{ stop.name }}</h4>
-            <table>
-                <tr>
-                    <th>Line</th>
-                    <th>Operator</th>
-                    <th>Direction</th>
-                    <th>Expected Departure Time</th>
-                </tr>
-                {% for departure in stop.departures %}
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Line</th>
+                        <th scope="col">Operator</th>
+                        <th scope="col">Direction</th>
+                        <th scope="col">Departure Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for departure in stop.departures %}
                     <tr>
                         <td>{{ departure.line_name }}</td>
                         <td>{{ departure.operator_name }}</td>
                         <td>{{ departure.direction }}</td>
-                        <td>{{ departure.expected_departure_time }}</td>
+                        <td>{{ departure.best_departure_estimate }}</td>
                     </tr>
                 {% endfor %}
+                </tbody>
+                
             </table>
+            <p>Last updated: {{ stop.request_time }}</p>
         {% endfor %}
     </div>
 </div>
+<script>
+    setInterval(() => {
+        location.reload()
+    },30000)
+</script>
 {% endblock %}

@@ -8,6 +8,11 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            {% if postcodeInvalid %}
+            <div class="alert alert-danger" role="alert">
+                Error: Postcode {{ postcode }} is invalid!
+              </div>
+            {% endif %}
             <form id="messageForm" action="/busInfo" method="get">
                 <fieldset>
                     <legend>Postcode: </legend>
